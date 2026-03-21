@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Mi Amor 💕</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ffffff, #fcfcfc);
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* SOBRE */
+.sobre-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sobre {
+    width: 250px;
+    height: 160px;
+    background: #ffc4d1;
+    border-radius: 10px;
+    cursor: pointer;
+    position: relative;
+}
+
+.tapa {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:#f5d7de;
+    clip-path: polygon(0 0, 50% 50%, 100% 0);
+    transform-origin: top;
+    transition: 0.5s;
+}
+
+.carta {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    background:#f7f2f5;
+    top: 5%;
+    left: 5%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(100%);
+    transition: 0.5s;
+}
+
+.abierto .tapa {
+    transform: rotateX(180deg);
+}
+
+.abierto .carta {
+    transform: translateY(0);
+}
+
+/* CONTENIDO */
+.contenido {
+    display: none;
+    padding: 60px 20px;
+}
+
+/* FILA */
+.fila {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* IMÁGENES */
+.media {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* FOTO */
+.foto {
+    width: 700px;
+    border-radius: 15px;
+}
+
+
+/* MENSAJE */
+.mensaje {
+    max-width: 400px;
+    font-size: 22px;
+    color: #334155;
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* CONTADOR */
+.contador {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #40393a;
+}
+
+/* CORAZONES */
+.flotante {
+    position: absolute;
+    animation: flotar 6s linear infinite;
+    color: #f0e9ea;
+}
+
+@keyframes flotar {
+    0% { transform: translateY(0); opacity:1;}
+    100% { transform: translateY(-800px); opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SOBRE -->
+<div class="sobre-container" id="inicio">
+    <div class="sobre" onclick="abrir()">
+        <div class="tapa"></div>
+        <div class="carta">💌 Ábreme</div>
+    </div>
+</div>
+
+<!-- CONTENIDO -->
+<div class="contenido" id="contenido">
+
+    <div class="fila">
+
+        <!-- IMAGEN + GIF -->
+        <div class="media">
+            <img src="Contenido/Arbol amor.jpg" class="foto">
+        </div>
+
+        <!-- MENSAJE -->
+        <div class="mensaje">
+            Para el amor de mi vida 💕<br><br>
+
+            Si pudiera elegir un lugar seguro,<br>
+            sería a tu lado.<br><br>
+
+            Cuanto más tiempo estoy contigo,<br>
+            más te amo 💕<br><br>
+
+            — I Love You 💖
+
+            <div class="contador" id="contador"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- MÚSICA (usa MP3 directo, no YouTube) -->
+<audio id="musica" loop>
+    <source src="Contenido/Dvicio - Casi Humanos (Official Video).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function abrir() {
+    document.querySelector(".sobre").classList.add("abierto");
+
+    setTimeout(() => {
+        document.getElementById("inicio").style.display = "none";
+        document.getElementById("contenido").style.display = "block";
+        document.getElementById("musica").play();
+    }, 1500);
+}
+
+/* CONTADOR */
+const fechaInicio = new Date("2023-05-17");
+
+function actualizar() {
+    const hoy = new Date();
+    const diff = hoy - fechaInicio;
+
+    const d = Math.floor(diff/(1000*60*60*24));
+    const h = Math.floor(diff/(1000*60*60))%24;
+    const m = Math.floor(diff/(1000*60))%60;
+    const s = Math.floor(diff/1000)%60;
+
+    document.getElementById("contador").innerText =
+    `${d} días ${h} horas ${m} minutos ${s} segundos juntos 💕`;
+}
+
+setInterval(actualizar,1000);
+
+/* CORAZONES FLOTANTES */
+function flotante(){
+    const el=document.createElement("div");
+    el.classList.add("flotante");
+
+    const emojis = ["💕","❤️","🩷","💓"];
+    el.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+
+    el.style.left=Math.random()*200+"vw";
+    el.style.fontSize=(Math.random()*22+10)+"px";
+
+    document.body.appendChild(el);
+
+    setTimeout(()=>el.remove(),6000);
+}
+
+setInterval(flotante,500);
+</script>
+
+</body>
+</html>
